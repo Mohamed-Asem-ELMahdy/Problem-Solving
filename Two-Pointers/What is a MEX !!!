@@ -1,0 +1,44 @@
+#include <iostream>
+#include<bits/stdc++.h>
+#define FAST_IO ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+using namespace std;
+
+int main()
+{
+    FAST_IO;
+   int n;
+   cin>>n;
+   vector<int> vec(n);
+   for(int i=0;i<n;i++){
+       cin>>vec[i];
+   }
+
+   set<int> Get_Mex;
+   for(int i=0;i<=2*1e5;i++) Get_Mex.insert(i);
+
+   int max_mex = -1, l=0, r = 0;
+   int ans = -1;
+   unordered_map<int,int> mp;
+
+   while(r < n){
+       mp[vec[r]]++;
+       if(mp[vec[r]] == 1)Get_Mex.erase(vec[r]);
+       while(mp[vec[r]] > 1){
+           mp[vec[l]]--;
+           if(mp[vec[l]] == 0 )Get_Mex.insert(vec[l]);
+           l++;
+       }
+       int current_mex = *Get_Mex.begin();
+       int current_len = r-l+1;
+
+       if(max_mex < current_mex){
+           max_mex = current_mex;
+           ans = current_len;
+       }else if(max_mex  == current_mex){
+           ans = max(ans,current_len);
+       }
+       r++;
+   }
+   cout<<ans;
+    return 0;
+}
