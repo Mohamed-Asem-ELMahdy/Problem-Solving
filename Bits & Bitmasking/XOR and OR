@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+#define isBitOn(n,k) ( (n>>k) & 1)
+#define setBitOn(n,k) (n|=(1<<k))
+#define clrBitOn(n,k) (n&=~(1<<k))
+// __builtin_ctzll(x)  ->  count trailing zeros
+// __builtin_popcountll(x) -> count all setbits
+// 63-__builtin_clzll(x) -> idx of highest setbit
+using namespace std;
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    string s,str;
+    cin>>s >> str;
+
+
+
+    if (str.size() != s.size()) {
+        cout<<"NO"<<endl;
+        return 0;
+    }
+
+    bool c1 = str.find('1')!=string::npos;
+    bool c2 = s.find('1')!=string::npos;
+
+    cout << ((c1 == c2 ) ? "YES":"NO") ;
+
+    return 0;
+}
