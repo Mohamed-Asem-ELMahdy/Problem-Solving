@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+#define isBitOn(n,k) ( (n>>k) & 1)
+#define setBitOn(n,k) (n|=(1<<k))
+#define clrBitOn(n,k) (n&=~(1<<k))
+// __builtin_ctzll(x)  ->  count trailing zeros
+// __builtin_popcountll(x) -> count all setbits
+// 63-__builtin_clzll(x) -> idx of highest setbit
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int p, q, r;
+        cin >> p >> q >> r;
+        long long ans = 1;
+        for (int i = 0; i < 20; i++) {
+            int a, b, c;
+
+
+
+            a = (p>>i)&1;
+            b = (q>>i)&1;
+            c = (r>>i)&1;
+
+            int sum = a + b + c;
+
+            if (sum == 1) {
+                ans = 0;
+                break;
+            } else if (sum == 3) {
+                ans *= 4;
+            }
+        }
+
+        cout << ans << endl;
+    }
+
+    return 0;
+}
