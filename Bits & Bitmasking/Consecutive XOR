@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+#define isBitOn(n,k) ( (n>>k) & 1)
+#define setBitOn(n,k) (n|=(1<<k))
+#define clrBitOn(n,k) (n&=~(1<<k))
+// __builtin_ctzll(x)  ->  count trailing zeros
+// __builtin_popcountll(x) -> count all setbits
+// 63-__builtin_clzll(x) -> idx of highest setbit
+using namespace std;
+
+
+bool check_alternating(string ss) {
+    for (int i =0 ; i < ss.length()-1; i++) {
+        if (ss[i+1] == ss[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin>>t;
+    ex:
+    while(t--) {
+        int n;
+        cin>>n;
+        string s,ss;
+        cin>>s>>ss;
+        if (s == ss) {
+            cout<<"YES"<<endl;
+            goto ex;
+        }
+
+        if ( s == ss) {
+            cout<<"YES"<<endl;
+            goto ex;
+        }
+
+        int nZ1 = 0, nZ2 = 0;
+        //int nO1 = 0, nO2 = 0;
+        nZ1 = count(s.begin(), s.end(), '0');
+        // nZ2 = count(ss.begin(), ss.end(), '0');
+
+        if (nZ1 == n) {
+            cout<<"NO"<<endl;
+            goto ex;
+        }
+        else if ( !check_alternating(ss)) {
+            cout<<"YES"<<endl;
+            goto ex;
+        }
+        cout<<"NO"<<endl;
+    }
+
+
+    return 0;
+}
