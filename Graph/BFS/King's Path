@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+set<pair<int,int>> graph;
+vector<pair<int,int>> dir = {
+    {1,0}, {-1,0}, {0,1}, {0,-1},
+    {1,1}, {1,-1}, {-1,1}, {-1,-1}
+};
+
+int main() {
+
+    int x1,x2,y1,y2;
+    cin>>x1>>y1>>x2>>y2;
+
+    int k;
+    cin>>k;
+
+    while (k--) {
+        int node, from, to;
+        cin>>node>>from>>to;
+        for (int i= from ; i<=to; i++) {
+            graph.insert({node,i});
+        }
+    }
+
+    queue<pair<int,int>> q;
+    q.push({x1,y1});
+    map<pair<int,int>, int> mp;
+    mp[{x1,y1}] = 0;
+
+    while (!q.empty()) {
+        pair<int,int> p = q.front();
+        q.pop();
+
+        if (p.first == x2 && p.second == y2) {
+            cout<<mp[{x2,y2}]<<endl;
+            return 0;
+        }
+
+        for (auto d:dir) {
+            int nx = p.first + d.first;
+            int ny = p.second + d.second;
+
+           if (graph.count({nx,ny}) && mp.find({nx,ny}) == mp.end()) {
+               mp[{nx,ny}] = mp[p] + 1;
+               q.push({nx,ny});
+           }
+        }
+    }
+
+    cout <<-1;
+
+}
