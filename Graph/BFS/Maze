@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<pair<int,int>> dir = {
+    {1,0}, {-1,0}, {0,1}, {0,-1}
+};
+
+char graph [501][501]; bool visited [501][501];
+
+int main() {
+
+    int n,m,k;
+    cin >> n >> m >> k;
+
+    pair<int,int> start;
+    int cnt = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> graph[i][j];
+            if (graph[i][j] == '.') {
+                start = {i,j},cnt++;
+            }
+        }
+    }
+
+    queue<pair<int,int>> q;
+    q.push(start);
+    visited[start.first][start.second] = true;
+
+    int needToVisit = cnt - k;
+
+    int count = 1;
+    while (!q.empty()) {
+        auto [i,j] = q.front(); q.pop();
+        for (auto [x,y] : dir) {
+            int new_i = i + x, new_j = j + y;
+            if (new_i >= 0 && new_i < n && new_j >= 0 && new_j < m && graph[new_i][new_j] == '.' && !visited[new_i][new_j]) {
+                if (count == needToVisit)
+                    break;
+                q.push({new_i,new_j});
+                visited[new_i][new_j] = true;
+                count ++;
+            }
+        }
+    }
+
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (graph[i][j] == '.' && !visited[i][j]) {
+                cout << 'X';
+            }else cout << graph[i][j];
+        }
+        cout << endl;
+    }
+
+
+}
