@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<pair<int,int>> knight = {
+    { 2, 1}, { 2,-1},
+    {-2, 1}, {-2,-1},
+    { 1, 2}, { 1,-2},
+    {-1, 2}, {-1,-2}
+};
+int dis[1001][1001];
+
+int main() {
+    int n;
+    cin >> n;
+    memset(dis,-1,sizeof(dis));
+    queue<pair<int,int>> q;
+    q.push({0,0});
+    dis[0][0] = 0;
+
+    while(!q.empty()) {
+        int x = q.front().first;
+        int y = q.front().second;
+        q.pop();
+
+        for(auto p : knight) {
+            int nx = x + p.first;
+            int ny = y + p.second;
+
+            if (nx >=0 && nx < n && ny >= 0 && ny < n && dis[nx][ny] == -1) {
+                q.push({nx,ny});
+                dis[nx][ny] = dis[x][y] + 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0 ; j < n; j++) {
+            cout << dis[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
