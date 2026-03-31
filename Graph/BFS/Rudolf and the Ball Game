@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int main() {
+    int t;
+    cin>>t;
+
+    while (t--) {
+        int n,m,x;
+        cin>>n>>m>>x;
+
+        set<int> curr;
+        curr.insert(x);
+
+        vector<pair<int,char>> dis;
+        for (int i = 0; i < m; i++) {
+            int x; char y;
+            cin>>x>>y;
+            dis.push_back({x,y});
+        }
+
+        for (int i = 0; i < m ;i++) {
+            set<int> temp;
+            for (auto cur : curr) {
+                int r = dis[i].first;
+                char c = dis[i].second;
+
+                if (c == '0' || c == '?') {
+                    int cw = (cur + r - 1) % n + 1;
+                    temp.insert(cw);
+                }
+                if (c == '1' || c == '?') {
+                    int ccw = (cur - r + n - 1) % n + 1;
+                    temp.insert(ccw);
+                }
+            }
+
+            curr = temp;
+        }
+
+        cout << curr.size() << endl;
+        for (auto cur : curr) cout << cur << " ";
+        cout << endl;
+
+    }
+}
