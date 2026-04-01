@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+vector<pair<int,int>> dir = {
+    {1,0}, {-1,0}, {0,1}, {0,-1}
+};
+
+
+int dis[1001][1001];
+char graph[1001][1001];
+
+int main() {
+    int n,m;
+    cin >> n >> m;
+
+    memset(dis, -1, sizeof(dis));
+
+    for (int i = 0 ; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> graph[i][j];
+        }
+    }
+
+    pair<int,int > start, end;
+
+    cin >> start.first >> start.second;
+    cin >> end.first >> end.second;
+
+    start.first --; start.second --;
+    end.first --; end.second --;
+
+    queue<pair<int,int> > q;
+
+    q.push(start);
+
+    while (!q.empty()) {
+        pair<int,int> current = q.front();
+        q.pop();
+        for (auto [x,y] : dir ) {
+            int nx = current.first + x;
+            int ny = current.second + y;
+
+            if (nx == end.first && ny == end.second) {
+                if (dis[nx][ny] >= 0 || graph[nx][ny] == 'X') {
+                    cout << "yes";
+                    return 0;
+                }
+                q.push({nx,ny});
+            }
+
+            if (nx >= 0 && nx < n && ny >= 0 && ny < m && graph[nx][ny] == '.' && dis[nx][ny] == -1) {
+                dis[nx][ny] = dis[current.first][current.second] + 1;
+                q.push({nx,ny});
+            }
+        }
+    }
+
+    cout <<"NO";
+}
