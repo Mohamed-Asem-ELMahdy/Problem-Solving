@@ -1,0 +1,25 @@
+class Solution {
+    int mem[50];
+
+    int count(int n){
+        if( n == 0 )
+            return 1;
+        if( n < 0 )
+            return 0;
+
+        if( mem[n] != -1 )
+            return mem[n];
+
+        mem[n] = count(n-1) + count(n-2);
+
+        return mem[n];
+    }
+
+
+public :
+    int climbStairs(int n) {
+        memset(mem, -1, sizeof(mem));
+
+        return count(n);
+    }
+};
